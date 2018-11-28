@@ -1,0 +1,195 @@
+\documentclass[10pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[english,russian]{babel}
+
+\usepackage{listings}
+\lstset{inputencoding=utf8,extendedchars=false,keepspaces=true,mathescape} 
+\usepackage{ccaption}
+\usepackage{verbatim}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{syntax}
+\usepackage{bytefield}
+\usepackage{multicol}
+
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{hyperref}
+\hypersetup{unicode,breaklinks=true}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit,petri,calc,shapes.misc,shapes.geometric}
+%\usepackage{minted}
+\usepackage{ifplatform}
+
+\textheight 24.0cm
+\textwidth 16cm
+
+\voffset -2cm
+\hoffset .0cm
+\oddsidemargin 0.5mm
+\evensidemargin 0.5mm
+\topmargin -0.4mm
+\righthyphenmin=2
+\hfuzz=12.7pt
+\makeatletter
+%\renewcommand\section{\@startsection {section}{1}{\z@}%
+%                                   {3.5ex \@plus 1ex \@minus .2ex}%
+%                                   {2.3ex \@plus.2ex}%
+%                                   {\normalfont\Large\bfseries}}
+%\renewcommand{\thesection}{\arabic{section}}
+\@addtoreset{equation}{section}
+\@addtoreset{figure}{section}
+\@addtoreset{table}{section}
+
+\newlength{\chaprule}
+\newlength{\ATchapskip}
+\setlength{\chaprule}{0.4\p@} \setlength{\ATchapskip}{10\p@} \advance \ATchapskip by -1\chaprule
+
+\renewcommand{\@makechapterhead}[1]{%
+    \ifdim\chaprule>6\p@ \setlength{\chaprule}{6\p@}\fi
+    \vspace*{\ATchapskip}%
+    %\noindent\rule{\textwidth}{\chaprule}\par%
+    %\vskip 10\p@
+    {\parindent \z@ \normalfont \ifnum \c@secnumdepth >\m@ne {\huge\bfseries \@chapapp\space \thechapter.}
+        %\par\nobreak
+        %\vskip 8\p@
+        \fi \interlinepenalty\@M \huge\bfseries #1\par\nobreak \vskip 10\p@
+        %\noindent\rule{\textwidth}{\chaprule}\par%
+        \vskip\ATchapskip }}
+
+%\@addtoreset{lstlisting}{section}
+\makeatother
+
+\newcommand{\dom}{\rm dom}
+\newcounter{rem}[section]
+\renewcommand{\therem}{\thesection.\arabic{rem}}
+\newenvironment{Remark}{\par\refstepcounter{rem} \bf Замечание \therem. \sl}{\rm\par}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+%\renewcommand{\thelstlisting}{\thesection.\arabic{lstlisting}}
+\renewcommand{\lstlistingname}{Листинг}
+
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\theenumi)}
+\newcommand{\udc}[1]{УДК #1}
+
+\newcounter{lem}[section]
+\renewcommand{\thelem}{\thesection.\arabic{lem}}
+\newenvironment{Lemma}{\par\refstepcounter{lem}\bf Лемма \thelem. \sl}{\rm\par}
+
+\newcounter{cor}[section]
+\renewcommand{\thecor}{\thesection.\arabic{cor}}
+\newenvironment{Corrolary}{\par\refstepcounter{cor}\bf Следствие \thecor. \sl}{\rm\par}
+\newcounter{theor}[section]
+\renewcommand{\thetheor}{\thesection.\arabic{theor}}
+\newenvironment{Theorem}{\par\refstepcounter{theor}\bf Теорема \thetheor. \sl}{\rm\par}
+%\let \kappa=\ae
+\newcommand{\diag}{\mathop{\rm diag}}
+\newcommand{\epi}{\mathop{\rm epi}}
+\newenvironment{Proof}{\par\noindent\bf Доказательство.\rm}{ \par}
+
+\newcounter{exam}[section]
+\renewcommand{\theexam}{\thesection.\arabic{exam}}
+\newenvironment{Example}{\par\refstepcounter{exam}\bf Пример \theexam. \sl}{\rm\par}
+
+\newcounter{prob}[section]
+\renewcommand{\theprob}{\thesection.\arabic{prob}}
+\newenvironment{Problem}{\par\refstepcounter{prob}\bf Задача \theprob. \sl}{\rm\par}
+
+\newcounter{sol}[section]
+\renewcommand{\thesol}{\thesection.\arabic{sol}}
+\newenvironment{Solution}{\par\refstepcounter{sol}\bf Решение. \rm}{\rm\par}
+
+\newcounter{defin}[section]
+\renewcommand{\thedefin}{\thesection.\arabic{defin}}
+\newenvironment{Definition}{\par\refstepcounter{defin}\bf Определение \thedefin.\sl}{\rm\par}
+
+\newcounter{answ}[section]
+\renewcommand{\theansw}{\thesection.\arabic{answ}}
+\newenvironment{Answer}{\par\refstepcounter{answ}\theansw. \rm}{\rm\par}
+
+\newcounter{exerc}[section]
+\renewcommand{\theexerc}{\thesection.\arabic{exerc}}
+\newenvironment{Exercise}{\par\refstepcounter{exerc}\bf Упражнение \theexerc.\sl}{\rm\par}
+
+\newcounter{algor}[section]
+\renewcommand{\thealgor}{\thesection.\arabic{algor}}
+\newenvironment{Algorithm}[3]{\par\refstepcounter{algor}{\bf Алгоритм \thealgor. }{\sl #1}\par{\bf Вход: }{\sl #2}\par{\bf Выход: }\sl #3\par{\bf Метод.}\par}{\rm\par}
+
+\newcommand{\ljoq}{<<}
+\newcommand{\rjoq}{>>}
+\newcommand{\vraisup}{\mathop{\rm vraisup}}
+\newcommand{\pr}{\mathop{\rm pr}}
+\newcommand{\sgn}{\mathop{\rm sgn}}
+\newcommand{\epsclos}{\mathop{\text{$\varepsilon$--замыкание}}}
+\newcommand{\move}{\mathop{\text{переход}}}
+\newcommand{\closure}{\mathop{\text{ЗАМЫКАНИЕ}}}
+\newcommand{\goto}{\mathop{\text{ПЕРЕХОД}}}
+\newcommand{\ACTION}{\text{ДЕЙСТВИЕ}}
+\newcommand{\GOTO}{\text{ПЕРЕХОД}}
+\newcommand{\shift}[1]{\textbf{п}#1}
+\newcommand{\reduce}[1]{\textbf{св}#1}
+\newcommand{\access}{\textbf{доп}}
+\captiondelim{. }
+
+
+\setcounter{page}{3}
+%\setcounter{section}{1}
+
+
+\makeatletter
+\def\@seccntformat#1{\csname the#1\endcsname.\quad}
+\makeatother
+
+\algrenewcommand\algorithmicwhile{\textbf{пока}}
+\algrenewcommand\algorithmicdo{\textbf{ }}
+\algrenewcommand\algorithmicend{\textbf{конец}}
+\algrenewcommand\algorithmicif{\textbf{если}}
+\algrenewcommand\algorithmicthen{\textbf{то}}
+\algrenewtext{EndIf}{\textbf{всё}}
+\algrenewcommand\algorithmicfor{\textbf{для}}
+\algrenewtext{ForAll}{\textbf{для всех }}
+\algrenewcommand\algorithmicelse{\textbf{иначе}}
+\algrenewtext{ElsIf}{\textbf{инес }}
+\algrenewtext{Procedure}{\textbf{алг }}
+\algrenewtext{EndProcedure}{\textbf{кон }}
+
+\newcommand{\nad}[2]{\genfrac{}{}{0pt}{0}{#1}{#2}}
+
+\newcommand{\nullable}{\mathop{\textit{зануляется}}}
+\newcommand{\firstpos}{\mathop{\textit{первые}}}
+\newcommand{\lastpos}{\mathop{\textit{последние}}}
+\newcommand{\followpos}{\mathop{\textit{следующие}}}
+
+\newcommand{\myor}{\mathop{\textbf{или}}}
+
+\newcommand{\myand}{\mathop{\textbf{и}}}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\renewcommand{\syntleft}{\normalfont\itshape}
+\renewcommand{\syntright}{}
+
+\newcommand{\FIRST}{\text{ПЕРВЫЕ}}
+\newcommand{\FOLLOW}{\text{СЛЕДУЮЩИЕ}}
+
+\renewcommand{\theenumii}{\asbuk{enumii}}
+\renewcommand{\labelenumii}{\theenumii)}
+
+\begin{document}
+\unitlength=5mm
+
+\author{SarSoft}
+\title{Тест}
+\maketitle
+
+\tableofcontents
+
+\end{document}
